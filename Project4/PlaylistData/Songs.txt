@@ -8,3 +8,6 @@ Grand|Kane Brown|07/22/2022|2.59|Country|6.99|100|mp3.jpg
 Canon in D Major|Johann Pachelbel|12/12/1919|4.41|Classical|10.99|60|mp3.jpg
 Fly me to the moon|Frank Sinatra|06/09/1964|2.32|Other|2.99|25|mp3.jpg
 Sound of Silence|Disturbed|12/07/2015|4.08|Rock|1.99|10|mp3.jpg
+The Way I Talk|Morgan Wallen|09/12/2016|3.28|Country|2.50|80|mp3.jpg
+Haven Stay|Takida|07/27/2011|5.11|Rock|6.20|45|mp3.jpg
+Rap God|Eminem|10/15/2013|6.10|Rap|4.99|210|mp3.jpg

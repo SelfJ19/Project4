@@ -62,7 +62,7 @@ namespace MPThreeClass
         /// <param name="DownloadCost">sets the DownloadCost based on user input</param>
         /// <param name="FileSize">sets the FileSize based on user input</param>
         /// <param name="Path">sets the Path based on user input</param>
-        public MPThree(Genre Genre, string MpthreeTitle, string Artist, DateOnly Date, double SongPlaytime, decimal DownloadCost, double FileSize, string Path)
+        public MPThree(string MpthreeTitle, string Artist, DateOnly Date, double SongPlaytime, Genre Genre, decimal DownloadCost, double FileSize, string Path)
         {
             this.Genre = Genre;
             this.MpthreeTitle = MpthreeTitle;
