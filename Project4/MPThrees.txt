@@ -1,0 +1,8 @@
+song title|artist|song release date|playback time (min.)|genre|download cost|file size (MBs)|album cover file path
+Stricken|Disturbed|05/25/2005|4.07|Rock|5.99|50|mp3.jpg
+Sugar|Maroon 5|01/13/2015|3.55|Pop|4.99|20|mp3.jpg
+Giant Steps|John Coltrane|02/01/1960|4.43|Jazz|8.99|120|mp3.jpg
+Grand|Kane Brown|07/22/2022|2.59|Country|6.99|100|mp3.jpg
+Canon in D Major|Johann Pachelbel|12/12/1919|4.41|Classical|10.99|60|mp3.jpg
+Fly me to the moon|Frank Sinatra|06/09/1964|2.32|Other|2.99|25|mp3.jpg
+Sound of Silence|Disturbed|12/07/2015|4.08|Rock|1.99|10|mp3.jpg
