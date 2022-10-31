@@ -1,3 +1,5 @@
+list name|creator name|date created
+Game On|Jason Self|10/30/2022
 song title|artist|song release date|playback time (min.)|genre|download cost|file size (MBs)|album cover file path
 Stricken|Disturbed|05/25/2005|4.07|Rock|5.99|50|mp3.jpg
 Sugar|Maroon 5|01/13/2015|3.55|Pop|4.99|20|mp3.jpg
