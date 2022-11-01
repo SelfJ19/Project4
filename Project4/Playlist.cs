@@ -207,27 +207,21 @@ namespace Project3
         #endregion
 
         #region FillFromFile()
-        public string FillFromFile(string path)
+        public void FillFromFile(string path)
         {
-            try
+            StreamReader reader = new StreamReader(path);
+            string line = reader.ReadLine();
+            string[] fields = line.Split("|");
+            NameOfPlaylist = fields[0];
+            CreatorOfPlaylist = fields[1];
+            CreationDate = fields[2];
+        
+            while (reader.Peek() != -1)
             {
-                StreamReader reader = new StreamReader(path);
-                while (reader.Peek() != -1)
-                {
-                    string line = reader.ReadLine();
-                    string[] fields = line.Split("|");
-                    MPThrees = new MPThree(fields[0], fields[1], DateOnly.Parse(fields[2]), Double.Parse(fields[3]), ((Genre)Enum.Parse(typeof(Genre), (fields[4])), Decimal.Parse(fields[5]), Double.Parse(fields[6]), fields[7]));
-                    MPThrees.Add();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            finally
-            {
-                if (reader != null)
-                    reader.Close();
+                line = reader.ReadLine();
+                fields = line.Split("|");
+                MPThree mPThrees = new MPThree(fields[0], fields[1], DateOnly.Parse(fields[2]), Double.Parse(fields[3]), ((Genre)Enum.Parse(typeof(Genre), (fields[4]))), Decimal.Parse(fields[5]), Double.Parse(fields[6]), fields[7]);
+                MPThrees.Add(mPThrees);
             }
         }
         #endregion
