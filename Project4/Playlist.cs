@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection.PortableExecutable;
@@ -227,14 +228,21 @@ namespace Project3
         #endregion
 
         #region SaveToFile()
-
+        public void SaveToFile(string path)
+        {
+            StreamWriter writer = new StreamWriter(path);
+            for (int i = 0; i < MPThrees.Count; i++)
+            {
+                writer.WriteLine(MPThrees[i].MpthreeTitle + "|" + MPThrees[i].Artist + "|" + MPThrees[i].Date + "|" + MPThrees[i].SongPlaytime + "|" + MPThrees[i].Genre + "|" + MPThrees[i].DownloadCost + "|" + MPThrees[i].FileSize + "|" + MPThrees[i].Path);
+            }
+        }
         #endregion
 
-        #region ToString()
-        /// <summary>
-        /// ToString method
-        /// </summary>
-        /// <returns>format output of the playlist</returns>
+            #region ToString()
+            /// <summary>
+            /// ToString method
+            /// </summary>
+            /// <returns>format output of the playlist</returns>
         public override string ToString()
         {
             string info = "";

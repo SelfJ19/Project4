@@ -334,7 +334,7 @@ public class MPThreeDriver
         Console.Write("What is the path of your mp3? ");
         string Path = Console.ReadLine();
 
-        songInfo = new MPThree(userInput2, MpthreeTitle, Artist, Date, SongPlaytime, DownloadCost, FileSize, Path);
+        songInfo = new MPThree(MpthreeTitle, Artist, Date, SongPlaytime, userInput2, DownloadCost, FileSize, Path);
         return songInfo;
     }
     #endregion
