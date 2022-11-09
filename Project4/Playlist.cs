@@ -216,27 +216,32 @@ namespace Project3
             NameOfPlaylist = fields[0];
             CreatorOfPlaylist = fields[1];
             CreationDate = fields[2];
-            while (reader.Peek() != -1)
+            try
             {
-                try
+                while (reader.Peek() != -1)
                 {
                     line = reader.ReadLine();
                     fields = line.Split("|");
                     MPThree mPThrees = new MPThree(fields[0], fields[1], DateOnly.Parse(fields[2]), Double.Parse(fields[3]), ((Genre)Enum.Parse(typeof(Genre), (fields[4]))), Decimal.Parse(fields[5]), Double.Parse(fields[6]), fields[7]);
                     MPThrees.Add(mPThrees);
                 }
-                catch(ArgumentException e)
-                {
-                    return;
-                }
-                catch(FormatException e)
-                {
-                    return;
-                }
-                catch(Exception e)
-                {
-                    return;
-                }
+            }
+            catch (ArgumentException e)
+            {
+                return;
+            }
+            catch (FormatException e)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                return;
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
             }
         }
         #endregion
@@ -249,6 +254,7 @@ namespace Project3
             {
                 writer.WriteLine(MPThrees[i].MpthreeTitle + "|" + MPThrees[i].Artist + "|" + MPThrees[i].Date + "|" + MPThrees[i].SongPlaytime + "|" + MPThrees[i].Genre + "|" + MPThrees[i].DownloadCost + "|" + MPThrees[i].FileSize + "|" + MPThrees[i].Path);
             }
+            writer.Close();
         }
         #endregion
 

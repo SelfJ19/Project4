@@ -11,6 +11,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System;
+using System.Reflection.PortableExecutable;
 using MPThreeClass;
 using Project3;
 
@@ -40,6 +41,7 @@ public class MPThreeDriver
         Console.Write("What is your name? ");
         string userName = Console.ReadLine();
         string userInput;
+        string path;
         bool inputValidation = false;
         Playlist playlist = null;
         /// <summary>
@@ -53,12 +55,20 @@ public class MPThreeDriver
             {
                 #region Case1
                 case "1":
-                    Console.WriteLine("What is the location of the file you wish to upload? ex(../../../Text Files/example.txt) Or the best way is to copy and paste your location into the screen.");
-                    string path = Console.ReadLine();
-                    playlist = new Playlist();
-                    playlist.FillFromFile(path);
-                break;
+                    try
+                    {
+                        Console.WriteLine("What is the location of the file you wish to upload? ex(../../../Text Files/example.txt) Or the best way is to copy and paste your location into the screen but add FileName.txt to the end.");
+                        path = Console.ReadLine();
+                        playlist = new Playlist();
+                        playlist.FillFromFile(path);
+                    }
+                    catch (FileNotFoundException e)
+                    {
+                        Console.WriteLine("File was not found, make sure you have entered the correct information.");
+                    }
+                    break;
                 #endregion
+
                 #region Case2
                 case "2":
                     playlist = new Playlist();
@@ -88,11 +98,6 @@ public class MPThreeDriver
                         }
                     } while (inputValidation == true);
                     playlist.SaveNeeded = true;
-                    if(playlist.SaveNeeded == true)
-                    {
-                        
-                    }
-
                 break;
                 #endregion
 
@@ -106,7 +111,8 @@ public class MPThreeDriver
                     {
                         MPThree newMP3 = NewMPThree();
                         playlist.Add(newMP3);
-                    }                                       
+                        playlist.SaveNeeded = true;
+                    }                    
                     break;
                 #endregion
 
@@ -123,6 +129,7 @@ public class MPThreeDriver
                         int index = Int32.Parse(Console.ReadLine());
                         MPThree newMP3 = NewMPThree();
                         playlist.Edit(index, newMP3);
+                        playlist.SaveNeeded = true;
                     }              
                     break;
                 #endregion
@@ -139,6 +146,7 @@ public class MPThreeDriver
                         Console.WriteLine(playlist);
                         int index = Int32.Parse(Console.ReadLine());
                         playlist.Drop(index);
+                        playlist.SaveNeeded = true;
                     }                    
                     break;
                 #endregion
@@ -266,7 +274,39 @@ public class MPThreeDriver
 
                 #region Case12
                 case "12":
+                    if (playlist == null)
+                    {
+                        Console.WriteLine("Playlist is empty. Please create one.");
+                    }
+                    else
+                    {
+                        if (playlist.SaveNeeded == true)
+                        {
+                            Console.WriteLine("Where would you like to save your playlist? Please enter the path ex(../../../Text Files/example.txt)");
+                            path = Console.ReadLine();
+                            playlist.SaveToFile(path);
+                        }
+                        playlist.SaveNeeded = false;
+                    }
+                    break;
+                #endregion
+
+                #region Case13
+                case "13":
+                    if(playlist.SaveNeeded == true)
+                    {
+                        Console.Write("Would you like to save your playlist before ending the program? Y or N: ");
+                        string userAnswer = Console.ReadLine().ToUpper();
+                        if (userAnswer == "Y")
+                        {
+                            Console.WriteLine("Where would you like to save your playlist? Please enter the path ex(../../../Text Files/example.txt)");
+                            path = Console.ReadLine();
+                            playlist.SaveToFile(path);
+                        }
+                    }
                     Console.WriteLine($"Goodbye. Thank you! {userName}");
+                    playlist.SaveNeeded = false;
+
                     break;
 
                 default:
@@ -274,7 +314,7 @@ public class MPThreeDriver
                     break;
                 #endregion
             }
-        } while (userInput != "12");
+        } while (userInput != "13");
     }
     #endregion
 
@@ -299,7 +339,8 @@ public class MPThreeDriver
         Console.WriteLine("9. Display all MP3's in the Playlist with a specific artist");
         Console.WriteLine("10. Sort the MP3's in the Playlist by song title");
         Console.WriteLine("11. Sort the MP3's in the Playlist by song release date");
-        Console.WriteLine("12. End the Program");
+        Console.WriteLine("12. Save Playlist File");
+        Console.WriteLine("13. End the Program");
         Console.WriteLine("Please type the number of your choice: ");
         userInput = Console.ReadLine();
         return userInput;
