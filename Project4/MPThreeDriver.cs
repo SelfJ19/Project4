@@ -53,6 +53,14 @@ public class MPThreeDriver
             {
                 #region Case1
                 case "1":
+                    Console.WriteLine("What is the location of the file you wish to upload? ex(../../../Text Files/example.txt) Or the best way is to copy and paste your location into the screen.");
+                    string path = Console.ReadLine();
+                    playlist = new Playlist();
+                    playlist.FillFromFile(path);
+                break;
+                #endregion
+                #region Case2
+                case "2":
                     playlist = new Playlist();
                     Console.Write("What is the name of your playlist? ");
                     playlist.NameOfPlaylist = Console.ReadLine();
@@ -79,12 +87,17 @@ public class MPThreeDriver
                             inputValidation = false;
                         }
                     } while (inputValidation == true);
+                    playlist.SaveNeeded = true;
+                    if(playlist.SaveNeeded == true)
+                    {
+                        
+                    }
 
                 break;
                 #endregion
 
-                #region Case2
-                case "2":
+                #region Case3
+                case "3":
                     if (playlist == null)
                     {
                         Console.WriteLine("Playlist is empty. Please create one.");
@@ -97,8 +110,8 @@ public class MPThreeDriver
                     break;
                 #endregion
 
-                #region Case3
-                case "3":
+                #region Case4
+                case "4":
                     if (playlist == null)
                     {
                         Console.WriteLine("Playlist is empty. Please create one.");
@@ -114,8 +127,8 @@ public class MPThreeDriver
                     break;
                 #endregion
 
-                #region Case4
-                case "4":
+                #region Case5
+                case "5":
                     if(playlist == null)
                     {
                         Console.WriteLine("Playlist is empty. Please create one.");
@@ -130,8 +143,8 @@ public class MPThreeDriver
                     break;
                 #endregion
 
-                #region Case5
-                case "5":
+                #region Case6
+                case "6":
                     if (playlist == null)
                     {
                         Console.WriteLine("Playlist is empty. Please create one.");
@@ -143,8 +156,8 @@ public class MPThreeDriver
                     break;
                 #endregion
 
-                #region Case6
-                case "6":
+                #region Case7
+                case "7":
                     if (playlist == null)
                     {
                         Console.WriteLine("Playlist is empty. Please create one.");
@@ -166,8 +179,8 @@ public class MPThreeDriver
                     break;
                 #endregion
 
-                #region Case7
-                case "7":
+                #region Case8
+                case "8":
                     if (playlist == null)
                     {
                         Console.WriteLine("Playlist is empty. Please create one.");
@@ -194,8 +207,8 @@ public class MPThreeDriver
                     break;
                 #endregion
 
-                #region Case8
-                case "8":
+                #region Case9
+                case "9":
                     if (playlist == null)
                     {
                         Console.WriteLine("Playlist is empty. Please create one.");
@@ -221,8 +234,8 @@ public class MPThreeDriver
                     break;
                 #endregion
 
-                #region Case9
-                case "9":
+                #region Case10
+                case "10":
                     if (playlist == null)
                     {
                         Console.WriteLine("Playlist is empty. Please create one.");
@@ -236,8 +249,8 @@ public class MPThreeDriver
                     break;                    
                 #endregion
 
-                #region Case10
-                case "10":
+                #region Case11
+                case "11":
                     if (playlist == null)
                     {
                         Console.WriteLine("Playlist is empty. Please create one.");
@@ -251,8 +264,8 @@ public class MPThreeDriver
                     break;
                 #endregion
 
-                #region Case11
-                case "11":
+                #region Case12
+                case "12":
                     Console.WriteLine($"Goodbye. Thank you! {userName}");
                     break;
 
@@ -261,7 +274,7 @@ public class MPThreeDriver
                     break;
                 #endregion
             }
-        } while (userInput != "11");
+        } while (userInput != "12");
     }
     #endregion
 
@@ -275,17 +288,18 @@ public class MPThreeDriver
         string userInput;
         Console.WriteLine("\nMenu:");
         Console.WriteLine("-----");
-        Console.WriteLine("1. Create a new Playlist of MP3's");
-        Console.WriteLine("2. Create a new MP3 and add it to the Playlist");
-        Console.WriteLine("3. Edit an MP3 from the Playlist");
-        Console.WriteLine("4. Drop an MP3 from the Playlist");
-        Console.WriteLine("5. Display all MP3's in the Playlist");
-        Console.WriteLine("6. Search for an MP3 in the Playlist by song title");
-        Console.WriteLine("7. Display all MP3's in the Playlist of a specific Genre");
-        Console.WriteLine("8. Display all MP3's in the Playlist with a specific artist");
-        Console.WriteLine("9. Sort the MP3's in the Playlist by song title");
-        Console.WriteLine("10. Sort the MP3's in the Playlist by song release date");
-        Console.WriteLine("11. End the Program");
+        Console.WriteLine("1. Create a new Playlist by uploading a file");
+        Console.WriteLine("2. Create a new Playlist of MP3's");
+        Console.WriteLine("3. Create a new MP3 and add it to the Playlist");
+        Console.WriteLine("4. Edit an MP3 from the Playlist");
+        Console.WriteLine("5. Drop an MP3 from the Playlist");
+        Console.WriteLine("6. Display all MP3's in the Playlist");
+        Console.WriteLine("7. Search for an MP3 in the Playlist by song title");
+        Console.WriteLine("8. Display all MP3's in the Playlist of a specific Genre");
+        Console.WriteLine("9. Display all MP3's in the Playlist with a specific artist");
+        Console.WriteLine("10. Sort the MP3's in the Playlist by song title");
+        Console.WriteLine("11. Sort the MP3's in the Playlist by song release date");
+        Console.WriteLine("12. End the Program");
         Console.WriteLine("Please type the number of your choice: ");
         userInput = Console.ReadLine();
         return userInput;
@@ -302,7 +316,7 @@ public class MPThreeDriver
         MPThree songInfo;
         Genre userInput2;
         int genre;
-        
+
         // Loop that changes the genre entered by the user into an int and keeps looping if it is below 1 or greater than or equal to 7 so the user must enter a valid genre option. If it is below 1 or greater than or equal to 7 it will display the error message.
         do
         {
@@ -312,19 +326,30 @@ public class MPThreeDriver
             string Genre = Console.ReadLine();
             userInput2 = (Genre)Enum.Parse(typeof(Genre), Genre);
             genre = Int32.Parse(Genre);
-            if(genre < 1 || genre >= 7)
+            if (genre < 1 || genre >= 7)
             {
                 Console.WriteLine("\nPlease select a valid option:\n");
             }
-        } while (genre < 1 || genre >= 7);      
-        
+        } while (genre < 1 || genre >= 7);
         Console.Write("What is your mp3 title? ");
         string MpthreeTitle = Console.ReadLine();
         Console.Write("Who is the artist? ");
         string Artist = Console.ReadLine();
-        Console.Write("What is the release date of your mp3? Use the following format (MM/DD/YYYY): ");
-        string releaseDate = Console.ReadLine();
-        DateOnly Date = DateOnly.Parse(releaseDate);
+        DateOnly Date;
+        try
+        {
+            Console.Write("What is the release date of your mp3? Use the following format (MM/DD/YYYY): ");
+            string releaseDate = Console.ReadLine();
+            Date = DateOnly.Parse(releaseDate);
+        }
+        catch(FormatException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
         Console.Write("How long is your mp3? ");
         double SongPlaytime = Double.Parse(Console.ReadLine());
         Console.Write("How much does it cost to download? ");

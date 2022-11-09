@@ -216,13 +216,27 @@ namespace Project3
             NameOfPlaylist = fields[0];
             CreatorOfPlaylist = fields[1];
             CreationDate = fields[2];
-        
             while (reader.Peek() != -1)
             {
-                line = reader.ReadLine();
-                fields = line.Split("|");
-                MPThree mPThrees = new MPThree(fields[0], fields[1], DateOnly.Parse(fields[2]), Double.Parse(fields[3]), ((Genre)Enum.Parse(typeof(Genre), (fields[4]))), Decimal.Parse(fields[5]), Double.Parse(fields[6]), fields[7]);
-                MPThrees.Add(mPThrees);
+                try
+                {
+                    line = reader.ReadLine();
+                    fields = line.Split("|");
+                    MPThree mPThrees = new MPThree(fields[0], fields[1], DateOnly.Parse(fields[2]), Double.Parse(fields[3]), ((Genre)Enum.Parse(typeof(Genre), (fields[4]))), Decimal.Parse(fields[5]), Double.Parse(fields[6]), fields[7]);
+                    MPThrees.Add(mPThrees);
+                }
+                catch(ArgumentException e)
+                {
+                    return;
+                }
+                catch(FormatException e)
+                {
+                    return;
+                }
+                catch(Exception e)
+                {
+                    return;
+                }
             }
         }
         #endregion
@@ -238,11 +252,11 @@ namespace Project3
         }
         #endregion
 
-            #region ToString()
-            /// <summary>
-            /// ToString method
-            /// </summary>
-            /// <returns>format output of the playlist</returns>
+        #region ToString()
+        /// <summary>
+        /// ToString method
+        /// </summary>
+        /// <returns>format output of the playlist</returns>
         public override string ToString()
         {
             string info = "";
