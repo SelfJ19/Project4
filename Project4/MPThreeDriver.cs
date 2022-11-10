@@ -57,14 +57,19 @@ public class MPThreeDriver
                 case "1":
                     try
                     {
-                        Console.WriteLine("What is the location of the file you wish to upload? ex(../../../Text Files/example.txt) Or the best way is to copy and paste your location into the screen but add FileName.txt to the end.");
-                        path = Console.ReadLine();
-                        playlist = new Playlist();
-                        playlist.FillFromFile(path);
+
+                            Console.WriteLine("What is the location of the file you wish to upload? ex(../../../Text Files/example.txt) Or the best way is to copy and paste your location into the screen but add the FileName.txt to the end.");
+                            path = Console.ReadLine();
+                            playlist = new Playlist();
+                            playlist.FillFromFile(path);
                     }
                     catch (FileNotFoundException e)
                     {
                         Console.WriteLine("File was not found, make sure you have entered the correct information.");
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e.Message);
                     }
                     break;
                 #endregion
@@ -199,17 +204,18 @@ public class MPThreeDriver
                         string genre = Console.ReadLine();
                         Genre userGenre = (Genre)Enum.Parse(typeof(Genre), genre);
                         playlist.SearchByGenre(userGenre);
-                        
+
                         // If the genre the user enters is in the playlist it will not be null and the foreach loop will display all mp3's that are of that genre. Else return there were no songs found of that genre
-                        if (playlist.SearchByGenre(userGenre) != null)
-                        {
-                            Console.WriteLine($"The MP3's of that genre are: \n");
-                            foreach(MPThree mPThree in playlist.SearchByGenre(userGenre))
-                                Console.WriteLine(mPThree);                    
-                        }
-                        else
+                        if (playlist.SearchByGenre(userGenre).Count <= 0)
                         {
                             Console.WriteLine("There were no songs found of that genre.");
+                        }
+
+                        else
+                        {
+                            Console.WriteLine($"The MP3's of that genre are: \n");
+                            foreach (MPThree mPThree in playlist.SearchByGenre(userGenre))
+                                Console.WriteLine(mPThree);
                         }
                     }                    
                     break;
@@ -228,17 +234,17 @@ public class MPThreeDriver
                         playlist.SearchByArtist(artistName);
 
                         // If the artist the user enters is in the playlist it will not be null and the foreach loop will display all mp3's that are by that artist. Else return there were no songs found by that artist
-                        if (playlist.SearchByArtist(artistName) != null)
+                        if (playlist.SearchByArtist(artistName).Count <= 0)
+                        {
+                            Console.WriteLine("There were no songs found by that artist.");                            
+                        }
+                        else
                         {
                             Console.WriteLine($"The MP3's by that artist are: \n");
                             foreach (MPThree mPThree in playlist.SearchByArtist(artistName))
                                 Console.WriteLine(mPThree);
                         }
-                        else
-                        {
-                            Console.WriteLine("There were no songs found by that artist.");
-                        }
-                }                    
+                    }                    
                     break;
                 #endregion
 
@@ -295,18 +301,21 @@ public class MPThreeDriver
                 case "13":
                     if(playlist.SaveNeeded == true)
                     {
-                        Console.Write("Would you like to save your playlist before ending the program? Y or N: ");
-                        string userAnswer = Console.ReadLine().ToUpper();
-                        if (userAnswer == "Y")
+                        string userAnswer;
+                        do
                         {
-                            Console.WriteLine("Where would you like to save your playlist? Please enter the path ex(../../../Text Files/example.txt)");
-                            path = Console.ReadLine();
-                            playlist.SaveToFile(path);
-                        }
+                            Console.Write("Would you like to save your playlist before ending the program? Y or N: ");
+                            userAnswer = Console.ReadLine().ToUpper();
+                            if (userAnswer == "Y")
+                            {
+                                Console.WriteLine("Where would you like to save your playlist? Please enter the path ex(../../../Text Files/example.txt)");
+                                path = Console.ReadLine();
+                                playlist.SaveToFile(path);
+                            }
+                        } while (userAnswer != "Y" && userAnswer != "N");
                     }
                     Console.WriteLine($"Goodbye. Thank you! {userName}");
                     playlist.SaveNeeded = false;
-
                     break;
 
                 default:

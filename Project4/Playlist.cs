@@ -23,6 +23,9 @@ using MPThreeClass;
 
 namespace Project3
 {
+    /// <summary>
+    /// Creates the Playlist class
+    /// </summary>
     public class Playlist
     {
         #region Attributes
@@ -113,7 +116,6 @@ namespace Project3
             List<MPThree> foundMPThrees = new List<MPThree>();
             for (int i = 0; i < MPThrees.Count; i++)
             {
-                
                 if (MPThrees[i].Genre == searchGenre)
                 {
                     foundMPThrees.Add(MPThrees[i]);
@@ -250,6 +252,7 @@ namespace Project3
         public void SaveToFile(string path)
         {
             StreamWriter writer = new StreamWriter(path);
+            writer.WriteLine(NameOfPlaylist + "|" + CreatorOfPlaylist + "|" + CreationDate);
             for (int i = 0; i < MPThrees.Count; i++)
             {
                 writer.WriteLine(MPThrees[i].MpthreeTitle + "|" + MPThrees[i].Artist + "|" + MPThrees[i].Date + "|" + MPThrees[i].SongPlaytime + "|" + MPThrees[i].Genre + "|" + MPThrees[i].DownloadCost + "|" + MPThrees[i].FileSize + "|" + MPThrees[i].Path);
