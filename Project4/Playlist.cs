@@ -212,38 +212,41 @@ namespace Project3
         #region FillFromFile()
         public void FillFromFile(string path)
         {
-            StreamReader reader = new StreamReader(path);
-            string line = reader.ReadLine();
-            string[] fields = line.Split("|");
-            NameOfPlaylist = fields[0];
-            CreatorOfPlaylist = fields[1];
-            CreationDate = fields[2];
-            try
+            if (System.IO.File.Exists(path))
             {
-                while (reader.Peek() != -1)
+                StreamReader reader = new StreamReader(path);
+                string line = reader.ReadLine();
+                string[] fields = line.Split("|");
+                NameOfPlaylist = fields[0];
+                CreatorOfPlaylist = fields[1];
+                CreationDate = fields[2];
+                try
                 {
-                    line = reader.ReadLine();
-                    fields = line.Split("|");
-                    MPThree mPThrees = new MPThree(fields[0], fields[1], DateOnly.Parse(fields[2]), Double.Parse(fields[3]), ((Genre)Enum.Parse(typeof(Genre), (fields[4]))), Decimal.Parse(fields[5]), Double.Parse(fields[6]), fields[7]);
-                    MPThrees.Add(mPThrees);
+                    while (reader.Peek() != -1)
+                    {
+                        line = reader.ReadLine();
+                        fields = line.Split("|");
+                        MPThree mPThrees = new MPThree(fields[0], fields[1], DateOnly.Parse(fields[2]), Double.Parse(fields[3]), ((Genre)Enum.Parse(typeof(Genre), (fields[4]))), Decimal.Parse(fields[5]), Double.Parse(fields[6]), fields[7]);
+                        MPThrees.Add(mPThrees);
+                    }
                 }
-            }
-            catch (ArgumentException e)
-            {
-                return;
-            }
-            catch (FormatException e)
-            {
-                return;
-            }
-            catch (Exception e)
-            {
-                return;
-            }
-            finally
-            {
-                if (reader != null)
-                    reader.Close();
+                catch (ArgumentException e)
+                {
+                    return;
+                }
+                catch (FormatException e)
+                {
+                    return;
+                }
+                catch (Exception e)
+                {
+                    return;
+                }
+                finally
+                {
+                    if (reader != null)
+                        reader.Close();
+                }
             }
         }
         #endregion
@@ -251,13 +254,33 @@ namespace Project3
         #region SaveToFile()
         public void SaveToFile(string path)
         {
-            StreamWriter writer = new StreamWriter(path);
-            writer.WriteLine(NameOfPlaylist + "|" + CreatorOfPlaylist + "|" + CreationDate);
-            for (int i = 0; i < MPThrees.Count; i++)
+            StreamWriter writer = null;
+            try
             {
-                writer.WriteLine(MPThrees[i].MpthreeTitle + "|" + MPThrees[i].Artist + "|" + MPThrees[i].Date + "|" + MPThrees[i].SongPlaytime + "|" + MPThrees[i].Genre + "|" + MPThrees[i].DownloadCost + "|" + MPThrees[i].FileSize + "|" + MPThrees[i].Path);
+                writer = new StreamWriter(new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write));
+                writer.WriteLine(NameOfPlaylist + "|" + CreatorOfPlaylist + "|" + CreationDate);
+                for (int i = 0; i < MPThrees.Count; i++)
+                {
+                    writer.WriteLine(MPThrees[i].MpthreeTitle + "|" + MPThrees[i].Artist + "|" + MPThrees[i].Date + "|" + MPThrees[i].SongPlaytime + "|" + MPThrees[i].Genre + "|" + MPThrees[i].DownloadCost + "|" + MPThrees[i].FileSize + "|" + MPThrees[i].Path);
+                }
             }
-            writer.Close();
+            catch(ArgumentException e)
+            {
+                return;
+            }
+            catch(FormatException e)
+            {
+                return;
+            }
+            catch(Exception e)
+            {
+                return;
+            }
+            finally
+            {
+                if (writer != null)
+                    writer.Close();
+            }            
         }
         #endregion
 

@@ -57,11 +57,10 @@ public class MPThreeDriver
                 case "1":
                     try
                     {
-
-                            Console.WriteLine("What is the location of the file you wish to upload? ex(../../../Text Files/example.txt) Or the best way is to copy and paste your location into the screen but add the FileName.txt to the end.");
-                            path = Console.ReadLine();
-                            playlist = new Playlist();
-                            playlist.FillFromFile(path);
+                        Console.WriteLine("What is the location of the file you wish to upload? ex(../../../PlaylistData/FileName.txt)");
+                        path = Console.ReadLine();
+                        playlist = new Playlist();
+                        playlist.FillFromFile(path);
                     }
                     catch (FileNotFoundException e)
                     {
@@ -288,7 +287,7 @@ public class MPThreeDriver
                     {
                         if (playlist.SaveNeeded == true)
                         {
-                            Console.WriteLine("Where would you like to save your playlist? Please enter the path ex(../../../Text Files/example.txt)");
+                            Console.WriteLine("Where would you like to save your playlist? Please enter the path ex(../../../PlaylistData/FileName.txt)");
                             path = Console.ReadLine();
                             playlist.SaveToFile(path);
                         }
@@ -308,7 +307,7 @@ public class MPThreeDriver
                             userAnswer = Console.ReadLine().ToUpper();
                             if (userAnswer == "Y")
                             {
-                                Console.WriteLine("Where would you like to save your playlist? Please enter the path ex(../../../Text Files/example.txt)");
+                                Console.WriteLine("Where would you like to save your playlist? Please enter the path ex(../../../PlaylistData/FileName.txt)");
                                 path = Console.ReadLine();
                                 playlist.SaveToFile(path);
                             }
