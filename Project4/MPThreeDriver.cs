@@ -199,22 +199,33 @@ public class MPThreeDriver
                     }
                     else
                     {
-                        Console.Write("What genre of music would you like to see from the Playlist? ");
-                        string genre = Console.ReadLine();
-                        Genre userGenre = (Genre)Enum.Parse(typeof(Genre), genre);
-                        playlist.SearchByGenre(userGenre);
-
-                        // If the genre the user enters is in the playlist it will not be null and the foreach loop will display all mp3's that are of that genre. Else return there were no songs found of that genre
-                        if (playlist.SearchByGenre(userGenre).Count <= 0)
+                        try
                         {
-                            Console.WriteLine("There were no songs found of that genre.");
+                            Console.Write("What genre of music would you like to see from the Playlist? ");
+                            string genre = Console.ReadLine();
+                            Genre userGenre = (Genre)Enum.Parse(typeof(Genre), genre);
+                            playlist.SearchByGenre(userGenre);
+
+                            // If the genre the user enters is in the playlist it will not be null and the foreach loop will display all mp3's that are of that genre. Else return there were no songs found of that genre
+                            if (playlist.SearchByGenre(userGenre).Count <= 0)
+                            {
+                                Console.WriteLine("There were no songs found of that genre.");
+                            }
+
+                            else
+                            {
+                                Console.WriteLine($"The MP3's of that genre are: \n");
+                                foreach (MPThree mPThree in playlist.SearchByGenre(userGenre))
+                                    Console.WriteLine(mPThree);
+                            }
                         }
-
-                        else
+                        catch(ArgumentException e)
                         {
-                            Console.WriteLine($"The MP3's of that genre are: \n");
-                            foreach (MPThree mPThree in playlist.SearchByGenre(userGenre))
-                                Console.WriteLine(mPThree);
+                            Console.WriteLine("That genre does not exist.");
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine(e.Message);
                         }
                     }                    
                     break;
@@ -385,11 +396,23 @@ public class MPThreeDriver
         Console.Write("Who is the artist? ");
         string Artist = Console.ReadLine();
         DateOnly Date;
+        double SongPlaytime = 0.0;
+        decimal DownloadCost = 0;
+        double FileSize = 0.0;
+        string Path = "";
         try
         {
             Console.Write("What is the release date of your mp3? Use the following format (MM/DD/YYYY): ");
             string releaseDate = Console.ReadLine();
             Date = DateOnly.Parse(releaseDate);
+            Console.Write("How long is your mp3? ");
+            SongPlaytime = Double.Parse(Console.ReadLine());
+            Console.Write("How much does it cost to download? ");
+            DownloadCost = Decimal.Parse(Console.ReadLine());
+            Console.Write("What is the file size of your mp3? ");
+            FileSize = Double.Parse(Console.ReadLine());
+            Console.Write("What is the path of your mp3? ");
+            Path = Console.ReadLine();
         }
         catch(FormatException e)
         {
@@ -398,15 +421,7 @@ public class MPThreeDriver
         catch(Exception e)
         {
             Console.WriteLine(e.Message);
-        }
-        Console.Write("How long is your mp3? ");
-        double SongPlaytime = Double.Parse(Console.ReadLine());
-        Console.Write("How much does it cost to download? ");
-        decimal DownloadCost = Decimal.Parse(Console.ReadLine());
-        Console.Write("What is the file size of your mp3? ");
-        double FileSize = Double.Parse(Console.ReadLine());
-        Console.Write("What is the path of your mp3? ");
-        string Path = Console.ReadLine();
+        }        
 
         songInfo = new MPThree(MpthreeTitle, Artist, Date, SongPlaytime, userInput2, DownloadCost, FileSize, Path);
         return songInfo;
