@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System;
 using System.Reflection.PortableExecutable;
+using System.Xml;
 using MPThreeClass;
 using Project3;
 
@@ -376,27 +377,12 @@ public class MPThreeDriver
     private static MPThree NewMPThree()
     {
         MPThree songInfo;
-        Genre userInput2;
+        Genre userInput2 = default;
         int genre;
-
-        // Loop that changes the genre entered by the user into an int and keeps looping if it is below 1 or greater than or equal to 7 so the user must enter a valid genre option. If it is below 1 or greater than or equal to 7 it will display the error message.
-        do
-        {
-            Console.WriteLine("What is the Genre of your mp3?");
-            Console.Write("Pick from the following options: ");
-            Console.WriteLine("\n1-Rock\n2-Pop\n3-Jazz\n4-Country\n5-Classical\n6-Other");
-            string Genre = Console.ReadLine();
-            userInput2 = (Genre)Enum.Parse(typeof(Genre), Genre);
-            genre = Int32.Parse(Genre);
-            if (genre < 1 || genre >= 7)
-            {
-                Console.WriteLine("\nPlease select a valid option:\n");
-            }
-        } while (genre < 1 || genre >= 7);
-        Console.Write("What is your mp3 title? ");
-        string MpthreeTitle = Console.ReadLine();
-        Console.Write("Who is the artist? ");
-        string Artist = Console.ReadLine();
+        string Genre = "";
+        string MpthreeTitle = "";
+        string Artist = "";
+        string releaseDate = "";
         DateOnly Date;
         double SongPlaytime = 0.0;
         decimal DownloadCost = 0;
@@ -404,8 +390,26 @@ public class MPThreeDriver
         string Path = "";
         try
         {
+            // Loop that changes the genre entered by the user into an int and keeps looping if it is below 1 or greater than or equal to 7 so the user must enter a valid genre option. If it is below 1 or greater than or equal to 7 it will display the error message.
+            do
+            {
+                Console.WriteLine("What is the Genre of your mp3?");
+                Console.Write("Pick from the following options: ");
+                Console.WriteLine("\n1-Rock\n2-Pop\n3-Jazz\n4-Country\n5-Classical\n6-Other");
+                Genre = Console.ReadLine();
+                userInput2 = (Genre)Enum.Parse(typeof(Genre), Genre);
+                genre = Int32.Parse(Genre);
+                if (genre < 1 || genre >= 7)
+                {
+                    Console.WriteLine("\nPlease select a valid option:\n");
+                }
+            } while (genre < 1 || genre >= 7) ;
+            Console.Write("What is your mp3 title? ");
+            MpthreeTitle = Console.ReadLine();
+            Console.Write("Who is the artist? ");
+            Artist = Console.ReadLine();
             Console.Write("What is the release date of your mp3? Use the following format (MM/DD/YYYY): ");
-            string releaseDate = Console.ReadLine();
+            releaseDate = Console.ReadLine();
             Date = DateOnly.Parse(releaseDate);
             Console.Write("How long is your mp3? ");
             SongPlaytime = Double.Parse(Console.ReadLine());
@@ -415,6 +419,10 @@ public class MPThreeDriver
             FileSize = Double.Parse(Console.ReadLine());
             Console.Write("What is the path of your mp3? ");
             Path = Console.ReadLine();
+        }
+        catch(ArgumentException e)
+        {
+            Console.WriteLine(e.Message);
         }
         catch(FormatException e)
         {
