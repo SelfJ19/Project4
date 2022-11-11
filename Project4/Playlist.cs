@@ -210,6 +210,10 @@ namespace Project3
         #endregion
 
         #region FillFromFile()
+        /// <summary>
+        /// Creates the FillFromFile method
+        /// </summary>
+        /// <param name="path">the path the user enters to fill from</param>
         public void FillFromFile(string path)
         {
             if (System.IO.File.Exists(path))
@@ -252,6 +256,10 @@ namespace Project3
         #endregion
 
         #region SaveToFile()
+        /// <summary>
+        /// Creates the SaveToFile method
+        /// </summary>
+        /// <param name="path">the path the user enters to save to</param>
         public void SaveToFile(string path)
         {
             StreamWriter writer = null;
