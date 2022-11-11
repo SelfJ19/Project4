@@ -88,10 +88,12 @@ public class MPThreeDriver
                     {
                         MPThree mpthrees = NewMPThree();
                         playlist.Add(mpthrees);
-                        Console.Write("Do you want to add more songs (Y/N)? ");
-                        Console.WriteLine();
-                        userInput = Console.ReadLine().ToUpper();
-
+                        do
+                        {
+                            Console.Write("Do you want to add more songs (Y/N)? ");
+                            Console.WriteLine();
+                            userInput = Console.ReadLine().ToUpper();
+                        } while (userInput != "Y" && userInput != "N");
                         if (userInput == "Y")
                         {
                             inputValidation = true;
